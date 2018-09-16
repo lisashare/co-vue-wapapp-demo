@@ -1,0 +1,21 @@
+<!DOCTYPE html><html><head><meta charset=utf-8><meta name=viewport content="initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,width=device-width,viewport-fit=cover"><title>商机盒子</title><link rel=stylesheet href=/static/iconfont/css/font-awesome.min.css><script src="http://api.map.baidu.com/api?v=2.0&ak=8GlQOvABYVbkDjoU408HRbNoarU7gRY7"></script><script type=text/javascript>/*//获取当前位置
+        var geolocation = new BMap.Geolocation();
+        geolocation.getCurrentPosition(function(r){
+            if(this.getStatus() == BMAP_STATUS_SUCCESS){
+                mk = new BMap.Marker(r.point);
+                getAddress(r.point);
+            }else {
+                alert('failed'+this.getStatus());
+            }
+        });
+        //获取地址信息，设置地址label
+        function getAddress(point){
+            var gc = new BMap.Geocoder();
+            gc.getLocation(point, function(rs){
+                var addComp = rs.addressComponents;
+                // var address =  addComp.province +  addComp.city + addComp.district + addComp.street + addComp.streetNumber;//获取地址
+                var address =  addComp.city
+                console.log(address);
+            });
+
+        }*/</script><link href=/static/css/app.3d9d7e0e54df32cf8f1e071e52a65ad6.css rel=stylesheet></head><body><div id=app></div><script type=text/javascript src=/static/js/manifest.86a058c2bd596c6785b5.js></script><script type=text/javascript src=/static/js/vendor.5231a5390b2a51cf32a8.js></script><script type=text/javascript src=/static/js/app.04f1420080c786a3bd7b.js></script></body></html>
