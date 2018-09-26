@@ -37,12 +37,12 @@
 			    	</div>
 			    </div>
 			    <ul class="introUl">
-		        	<router-link to="/myfocus" tag="li" v-if="loginShow">
-		            	<span class="ico"><img src="/static/images/my/ico_star.png" alt=""></span>我的关注
-		            </router-link>
-		            <router-link to="/login" tag="li" v-if="logoutShow">
-		            	<span class="ico"><img src="/static/images/my/ico_star.png" alt=""></span>我的关注
-		            </router-link>
+					<li>
+						<div @click="myfocus" class="myfocus">
+							<span class="ico-focus"><img src="/static/images/my/ico_star.png" alt=""></span>我的关注
+						</div>
+						<div @click="mycollect"><span class="ico-collect"><img src="/static/images/my/icon_collect.png" alt=""></span>我的收藏</div>
+					</li>
 			        <li>
 			            <a class="callTell" href="tel:010-53579588"><span class="ico1" ><img src="/static/images/my/ico_head.png" alt=""></span>客服电话</a>
 			        </li>
@@ -74,6 +74,20 @@ export default {
         }
     },
     methods: {
+		myfocus(){
+			if(!this.logoutShow){
+				this.$router.push('/myfocus')
+			}else{
+				this.$router.push('/login')
+			}
+		},
+		mycollect(){
+			if(!this.logoutShow){
+				this.$router.push('/mycollect')
+			}else{
+				this.$router.push('/login')
+			}
+		},
     	ungetMyinfo(){//未登录
     		this.logoutShow=true //显示登录和注册按钮
 			this.defaultheadimgShow=true //显示默认头像
@@ -228,44 +242,62 @@ export default {
 }
 
 .myBox .introUl li{
-	display: block;
+	padding: 0 24/@rem;
 	overflow: hidden;
 	border-top: 1px solid #dae0e6;
 	border-bottom: 1px solid #dae0e6;
 	background:#fff;
 	margin-bottom:15/@rem;
+	font-size:30/@rem;
+	color: #2a2a2a;
+	img{
+		width: 100%;
+		vertical-align: top;
+	}
+	div{
+		height:88/@rem;
+		line-height:88/@rem;
+		display: flex;
+		align-items: center;
+		background: url('/static/images/my/icon_arrow_right.png') no-repeat;
+		background-size: 16/@rem 28/@rem;
+		background-position: right;
+		span{
+			display: inline-block;
+			margin-right:37/@rem;
+		}
+		.ico-focus{
+			width:40/@rem;
+			height:40/@rem;
+		}
+		.ico-collect{
+			width:40/@rem;
+			height:34/@rem;
+		}
+	}
+	.myfocus{
+		border-bottom: 1px solid #d9d9d9;
+	}
+  a.callTell {
+	width: 100%;
 	height:88/@rem;
 	line-height:88/@rem;
-	font-size:30/@rem;
-  a.callTell {
-    width: 100%;
     color: #000;
-    display: inline-block;
+	display: flex;
+	align-items: center;
+	background: url('/static/images/my/icon_arrow_right.png') no-repeat;
+	background-size: 16/@rem 28/@rem;
+	background-position: right;
+	.ico1{
+		display: inline-block;
+		margin-right: 37/@rem; 
+		width:40/@rem;
+		height:45/@rem;
+	}
   }
 }
 .myBox .introUl li:first-child{
 	border-top: 1px solid #6fc2e7;
-}
-.myBox .introUl li span{
-	box-sizing:content-box;
-	display:block;
-	float:left;
-	padding-left:25/@rem;
-	margin-right:30/@rem;
-}
-.myBox .introUl li span img{
-	width:100%;
-	display:block;
-}
-.myBox .introUl li .ico{
-	width:40/@rem;
-	height:40/@rem;
-	margin-top:28/@rem;
-}
-.myBox .introUl li .ico1{
-	width:40/@rem;
-	height:45/@rem;
-	margin-top:22/@rem;
 }
 .btnbox .btn{
 	width:658/@rem;

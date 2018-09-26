@@ -67,6 +67,24 @@ export default {
   },
   updated() {
     window.scroll(0, 0);
+  },
+  created () {
+    this.$http.post(this.baseurl+'/home/voddetail', {
+      "uuid": this.$route.query.videoId,
+      "params": {
+        "pageNum": "1",
+        "pageSize": "1",
+        "sourceType": "2"
+      }
+    }).then((res)=>{
+      if (res.data.code == 200) {
+        this.$wxShare({
+          title: res.data.data.title,
+          imgUrl: res.data.data.cover
+        })
+        console.log(res.data.data.cover)
+      }
+    })
   }
 }
 </script>

@@ -61,7 +61,7 @@ var _ServicePop = __webpack_require__(/*! ./ServicePop */ 350);
 
 var _ServicePop2 = _interopRequireDefault(_ServicePop);
 
-var _configs = __webpack_require__(/*! ../../configs */ 20);
+var _configs = __webpack_require__(/*! ../../configs */ 21);
 
 var _configs2 = _interopRequireDefault(_configs);
 
@@ -114,7 +114,7 @@ module.exports = exports['default'];
 
 exports.__esModule = true;
 
-var _configs = __webpack_require__(/*! ../../configs */ 20);
+var _configs = __webpack_require__(/*! ../../configs */ 21);
 
 var _configs2 = _interopRequireDefault(_configs);
 
@@ -161,7 +161,7 @@ var _utils = __webpack_require__(/*! ../../utils */ 26);
 
 var _utils2 = _interopRequireDefault(_utils);
 
-var _configs = __webpack_require__(/*! ../../configs */ 20);
+var _configs = __webpack_require__(/*! ../../configs */ 21);
 
 var _configs2 = _interopRequireDefault(_configs);
 
@@ -718,7 +718,7 @@ var _cookie = __webpack_require__(/*! ../utils/cookie */ 50);
 
 var _cookie2 = _interopRequireDefault(_cookie);
 
-var _configs = __webpack_require__(/*! ../configs */ 20);
+var _configs = __webpack_require__(/*! ../configs */ 21);
 
 var _configs2 = _interopRequireDefault(_configs);
 

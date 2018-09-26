@@ -61,7 +61,7 @@ var _ServicePop = __webpack_require__(/*! ./ServicePop */ 350);
 
 var _ServicePop2 = _interopRequireDefault(_ServicePop);
 
-var _configs = __webpack_require__(/*! ../../configs */ 20);
+var _configs = __webpack_require__(/*! ../../configs */ 21);
 
 var _configs2 = _interopRequireDefault(_configs);
 
@@ -114,7 +114,7 @@ module.exports = exports['default'];
 
 exports.__esModule = true;
 
-var _configs = __webpack_require__(/*! ../../configs */ 20);
+var _configs = __webpack_require__(/*! ../../configs */ 21);
 
 var _configs2 = _interopRequireDefault(_configs);
 
@@ -161,7 +161,7 @@ var _utils = __webpack_require__(/*! ../../utils */ 26);
 
 var _utils2 = _interopRequireDefault(_utils);
 
-var _configs = __webpack_require__(/*! ../../configs */ 20);
+var _configs = __webpack_require__(/*! ../../configs */ 21);
 
 var _configs2 = _interopRequireDefault(_configs);
 
@@ -722,7 +722,7 @@ var _utils = __webpack_require__(/*! ../utils */ 26);
 
 var _utils2 = _interopRequireDefault(_utils);
 
-var _configs = __webpack_require__(/*! ../configs */ 20);
+var _configs = __webpack_require__(/*! ../configs */ 21);
 
 var _configs2 = _interopRequireDefault(_configs);
 
@@ -823,6 +823,7 @@ exports.default = {
         if (lastMsg.type === 'text') {
           item.lastMsgShow = lastMsg.text || '';
         } else if (lastMsg.type === 'custom') {
+
           item.lastMsgShow = _utils2.default.parseCustomMsg(lastMsg);
         } else if (lastMsg.scene === 'team' && lastMsg.type === 'notification') {
           item.lastMsgShow = _utils2.default.generateTeamSysmMsg(lastMsg);

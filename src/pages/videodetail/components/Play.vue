@@ -14,6 +14,17 @@
     </div>
 
     <div class="des">
+      <!-- <div class="shoucang" @click="collectFn"><span class="shoucang-icon" :class="{'shoucang-icon-hover':collection}"></span>收藏</div> -->
+      <div class="shoucang">
+        <pro-manage
+          :commentsNum="0"
+          :hasComment="false"
+          :busId="list.uuid"
+          :supportStatus="list.supportStatus"
+          :supportTotal="list.supportTotal"
+          :isCollect="list.isCollect"
+        ></pro-manage>
+      </div>
       <p class="title">{{list.title}}</p>
       <!-- <div class="share">
         <p class="playCount">播放<em>55</em>次</p>
@@ -23,12 +34,21 @@
   </div>
 </template>
 <script>
+import ProManage from '@/common/proManage/ProManage'
 import Bus from '@/pages/components/bus.js'
+//tip
+import Vue from 'vue'
+import utils from '@/modules/utils.js'
+
 export default {
   name: 'VideoPlay',
   props: ['list', 'videoId','listVideo'],
+  components: {
+    ProManage
+  },
   data () {
     return {
+      collection: false, //收藏
       videoShow:true,//视频默认显示
       imgShow:false,//封皮默认不显示
       videoIconshow:false,
@@ -38,14 +58,31 @@ export default {
     }
   },
   mounted() {
-　let self = this
+　 let self = this
    Bus.$on('videoHiden', (e) => {
      self.videoHiden()
    })
    Bus.$on('imgHiden', (e) => {
      self.imgHiden()
    })
- },methods:{
+  },
+  methods:{
+    //收藏
+    collectFn () {
+      this.collection = !this.collection;
+      if(this.collection){
+        console.log('收藏成功');
+        utils.mobileTip({
+            "obj":Vue,
+            "content":"收藏成功"
+        })
+      }else{
+        utils.mobileTip({
+            "obj":Vue,
+            "content":"取消收藏"
+        })
+      }
+    },
     // 点击隐藏视频显示封皮
     videoHiden(){
       this.videoShow=false
@@ -95,6 +132,7 @@ export default {
   },
   created(){
     this.videobtnshow();
+    //console.log(this.list)
   }
 }
 </script>
@@ -129,11 +167,39 @@ export default {
      .des {
        padding:420/@rem 25/@rem 0;
        border-bottom: 1px solid #dae0e6;
+       .shoucang {
+         position: relative;
+         height: 36/@rem;
+         margin-top: 14/@rem;
+         //font-size: 24/@rem;
+         //text-align: right;
+         //margin-right: 24/@rem;
+         //margin-top: 30/@rem;
+         //.shoucang-icon {
+         //  width: 25/@rem;
+         //  height: 24/@rem;
+         //  background-image: url('/static/images/common/icon_soucang@3x.png');
+         //  background-repeat: no-repeat;
+         //  background-size: 25/@rem 24/@rem;
+         //  display: inline-block;
+         //  margin-right: 10/@rem;
+         //  position: relative;
+         //  top: 3/@rem;
+         //}
+         //.shoucang-icon-hover {
+         //  background-image: url('/static/images/common/icon_shoucang_hover@3x.png');
+         //}
+       }
+       .shoucang /deep/ .proManage {
+        height: 36/@rem;
+        line-height: 36/@rem;
+       }
        .title {
          font-size: 32/@rem;
          color: #333;
          height: 60/@rem;
-         margin-top: 30/@rem;
+         //margin-top: 30/@rem;
+         margin-top: 10/@rem;
          overflow: hidden;
          white-space: nowrap;
          text-overflow: ellipsis;

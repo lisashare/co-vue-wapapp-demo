@@ -20,7 +20,8 @@ module.exports = {
       },
       // http://192.168.13.135//brand/api
       '/api': {  //代理地址
-        target: 'http://192.168.13.135/',  //需要代理的地址
+        // target: 'http://kdwap-api-test.kuaidaoapp.com',  //需要代理的地址
+        target: 'http://192.168.13.135',  //需要代理的地址
         changeOrigin: true,  //是否跨域
         secure: false,
         pathRewrite: {

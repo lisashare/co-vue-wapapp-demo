@@ -99,7 +99,7 @@ export default {
         this.isActive = false
       }
       utils.setStore("temMobile",this.mobile)
-      console.log( utils.getStore("temMobile") )
+      // console.log( utils.getStore("temMobile") )
     },
     // toast提示
     tipShow (tipmsg) {
@@ -117,7 +117,7 @@ export default {
       if ( this.isActive ) {
 
       if (this.mobile == '' && this.password == '') {
-        console.log('手机号或者密码不能为空')
+        // console.log('手机号或者密码不能为空')
         return false
       }
       // var sdkToken = md5(this.password)
@@ -165,9 +165,9 @@ export default {
             }
 
         }).catch((e) => {
-          console.log(e)
+          // console.log(e)
           if (e.response) {
-            console.log(e.response.data.message)
+            // console.log(e.response.data.message)
             this.tipShow(e.response.data.message)
             // _this.onOff = false
           }
@@ -321,7 +321,8 @@ export default {
          .iconImg {
            position: absolute;
            left: 0/@rem;
-           top: 0/@rem;
+           top: 50%;
+           margin-top: -18/@rem;
          }
          .icon-tel, .icon-passw {
            width: 36/@rem;
@@ -330,6 +331,9 @@ export default {
            img {
              width: 36/@rem;
              height: 36/@rem;
+             position: absolute;
+             top: 0;
+             left: 0;
            }
          }
          .input1 {
@@ -337,6 +341,7 @@ export default {
            color: #999;
            padding-left: 66/@rem;
            /*border: 1px solid red;*/
+           vertical-align: middle;
          }
          .input1::-webkit-input-placeholder {
            font-size: 32/@rem;

@@ -256,7 +256,7 @@ export default {
 .comment{
     h2{border-left-color:#8299d5;}
     // .answerComent{
-    //     padding-top: 30/@rem;
+    //     margin-bottom: 98/@rem;
     // }
     .answerReturn{
         margin-bottom: 20/@rem;

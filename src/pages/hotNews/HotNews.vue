@@ -1,6 +1,6 @@
 <template>
     <div class="hotnews page-top">
-        <div class="line-bottom search-header">
+        <div class="line-bottom search-header bc">
             <i class="icon-left" v-on:click = "$router.back(-1)"></i>
         </div>
         <h3 class="title">{{listHotInfo.title}}</h3>

@@ -57,7 +57,7 @@ module.exports = Component.exports
 
 exports.__esModule = true;
 
-var _index = __webpack_require__(/*! ./index */ 20);
+var _index = __webpack_require__(/*! ./index */ 21);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -135,7 +135,7 @@ var _utils = __webpack_require__(/*! ../../utils */ 26);
 
 var _utils2 = _interopRequireDefault(_utils);
 
-var _configs = __webpack_require__(/*! ../../configs */ 20);
+var _configs = __webpack_require__(/*! ../../configs */ 21);
 
 var _configs2 = _interopRequireDefault(_configs);
 
@@ -255,9 +255,13 @@ exports.default = {
           item.type = 'custom-type3';
           item.imgUrl = '' + emojiCnt.img;
         }
+      } else if (content.type === 8) {
+        var obj = content.data;
+
+        item.showText = '<a class="imgtxt" href="' + _configs2.default.brandId + obj.sendBrandID + '">\n                                <div class="imgtxt-img"><img src=' + obj.sendImageUrl + ' /></div>\n                                <div class="imgtxt-title">' + obj.titleName + '</div>\n                                <div class="imgtxt-describe">\u52A0\u76DF\u8D39<span>' + obj.subTitle + '</span></div>\n                             </a>';
       } else {
         item.showText = _utils2.default.parseCustomMsg(item);
-        if (item.showText !== '[自定义消息]') {
+        if (item.showText !== '[链接]') {
           item.showText += ',请到手机或电脑客户端查看';
         }
       }
@@ -470,7 +474,7 @@ var _utils = __webpack_require__(/*! ../../utils */ 26);
 
 var _utils2 = _interopRequireDefault(_utils);
 
-var _configs = __webpack_require__(/*! ../../configs */ 20);
+var _configs = __webpack_require__(/*! ../../configs */ 21);
 
 var _configs2 = _interopRequireDefault(_configs);
 

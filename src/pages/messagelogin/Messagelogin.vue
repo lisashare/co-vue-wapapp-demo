@@ -378,7 +378,8 @@ export default {
          .iconImg {
            position: absolute;
            left: 0/@rem;
-           top: 0/@rem;
+           top: 50%;
+           margin-top: -18/@rem;
          }
          .icon-tel, .icon-passw {
            width: 36/@rem;
@@ -387,6 +388,9 @@ export default {
            img {
              width: 36/@rem;
              height: 36/@rem;
+             position: absolute;
+             top: 0;
+             left: 0;
            }
          }
          .icon-code {
@@ -396,6 +400,9 @@ export default {
            img {
              width: 42/@rem;
              height: 36/@rem;
+             position: absolute;
+             top: 0;
+             left: 0;
            }
          }
          .input1 {
@@ -403,6 +410,7 @@ export default {
            color: #999;
            padding-left: 66/@rem;
            /*border: 1px solid red;*/
+           vertical-align: middle;
          }
          .input1::-webkit-input-placeholder {
            font-size: 32/@rem;

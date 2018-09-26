@@ -1,5 +1,5 @@
----------------
-## webapp项目
+--------------- zhujie
+## 商机盒子webapp项目
 
 ### 配置环境请求变量
 
@@ -298,7 +298,7 @@ input[type=range]::-webkit-slider-thumb {
 
 组件中的细节
 <ul><li is="row"></li></ul>  // 父组件ul中有row组件,如果直接写row组件可能会有兼容问题
+--------------- zhujie
 
---------------------
 
 ## 组件中的name大写，路由中的name是小写

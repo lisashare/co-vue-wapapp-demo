@@ -28,6 +28,19 @@ Vue.use(ToastPlugin)
 
 Vue.config.productionTip = true
 
+//微信分享
+import wxShare from './modules/wxShare'
+Vue.prototype.$wxShare = wxShare
+router.afterEach(( to, from ) => {
+  wxShare({
+    title: to.meta.title,
+    desc: to.meta.desc,
+    link: to.meta.link,
+    imgUrl: to.meta.imgUrl
+  })
+})
+
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

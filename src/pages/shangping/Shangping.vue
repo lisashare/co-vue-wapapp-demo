@@ -9,25 +9,32 @@
     <header-title :title="title"></header-title>
     <mescroll ref="mescroll" :upCallback="upCallback"  warpId="index_scroll" id="index_scroll">
       <ul class="vrList">
-        <router-link tag="li" class="item"
+        <!-- <li class="item"
             v-for="(item,index) of vrListData"
             :key="index"
-            :to="{name:'videodetail',query:{videoId:item.uuid}}">
-          <h3 class="title">{{item.title}}</h3>
+            >
+            <router-link tag="div" :to="{name:'videodetail',query:{videoId:item.uuid}}">
+              <h3 class="title">{{item.title}}</h3>
 
-          <div class="vrImgs" v-if="item.cover">
-            <img :src="item.cover" />
-            <img class="vrImg" src="/static/images/home/icon/bofang.png" />
-          </div>
-          <div class="vrImgs" v-else>
-            <img src="/static/images/background_img/active.png" />
-            <img class="vrImg" src="/static/images/home/icon/bofang.png" />
-          </div>
-
+              <div class="vrImgs" v-if="item.cover">
+                <img :src="item.cover" />
+                <img class="vrImg" src="/static/images/home/icon/bofang.png" />
+              </div>
+              <div class="vrImgs" v-else>
+                <img src="/static/images/background_img/active.png" />
+                <img class="vrImg" src="/static/images/home/icon/bofang.png" />
+              </div>
+            </router-link>
           <div class="footer">
+            <div class="shoucang" @click="collectFn(item.uuid)"><span class="shoucang-icon" :class="{'shoucang-icon-hover':collection}"></span>收藏</div>
             <span class="commnent-icon"></span>{{item.commentsNum}}
           </div>
-        </router-link>
+        </li> -->
+        <shangping-list-item
+            v-for="(item,index) of vrListData"
+            :key="index"
+            :item="item"
+        ></shangping-list-item>
       </ul>
     </mescroll>
     <floating></floating>
@@ -41,6 +48,7 @@ import mescroll from '@/common/mescroll/Mescroll.vue' /* 分页组件 */
 import ServicePop from '@/pages/components/ServicePop'*/
 import Floating from '@/common/floating/Floating'
 import HeaderTitle from '@/pages/components/HeaderTitle.vue'
+import ShangpingListItem from '@/common/shangpingListItem/ShangpingListItem'
 export default {
   name: 'Vr',
   components: {
@@ -48,7 +56,8 @@ export default {
     /*NavList,
     ServicePop,*/
     Floating,
-    HeaderTitle
+    HeaderTitle,
+    ShangpingListItem
   },
   data () {
     return {
@@ -62,10 +71,18 @@ export default {
       isNavShow: false,
       isTelShow: false,
       vrListData: [],
-      title: "商评"
+      title: "商评",
+      // collection: false
     }
   },
   methods: {
+    //收藏
+    /*collectFn (uid) {
+      this.collection = !this.collection;
+      if(this.collection){
+        console.log('收藏成功'+uid);
+      }
+    },*/
     //客服电话
     phoneCall () {
       window.location.href = 'tel:010-53579588'
@@ -157,61 +174,7 @@ export default {
     .vrList {
       margin-top: 84/@rem;
       background: #eff3f7;
-      .item {
-        border-top: 1px solid #dae0e6;
-        border-bottom: 1px solid #dae0e6;
-        margin-bottom: 14/@rem;
-        background: #fff;
-        h3.title {
-          font-size: 32/@rem;
-          color: #333;
-          height: 90/@rem;
-          line-height: 90/@rem;
-          text-indent: 24/@rem;
-        }
-        .vrImgs {
-          width: 100%;
-          height: 400/@rem;
-          position: relative;
-          img {
-            width: 100%;
-            height: 400/@rem;
-          }
-          .vrImg {
-            width: 123/@rem;
-            height: 123/@rem;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            img {
-              width: 123/@rem;
-              height: 123/@rem;
-            }
-          }
-        }
-        .footer {
-          font-size: 24/@rem;
-          color: #999;
-          height: 90/@rem;
-          color: #999;
-          line-height: 90/@rem;
-          text-align: right;
-          margin-right: 24/@rem;
-          .commnent-icon {
-            font-size: 24/@rem;
-            width: 25/@rem;
-            height: 24/@rem;
-            background-image: url('/static/images/opportunity/icon/icon_talk@2x.png');
-            background-repeat: no-repeat;
-            background-size: 25/@rem 24/@rem;
-            display: inline-block;
-            position: relative;
-            top: 4/@rem;
-            left: -10/@rem;
-          }
-        }
-      }
+      //.item {}
 
     }
   }

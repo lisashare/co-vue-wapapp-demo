@@ -14,206 +14,241 @@
         <div class="babaliang" v-else-if="loading==3">
             <img src="/static/images/common/no_03.png" alt="">
         </div>
-        <div v-else-if="loading==2">
-        <!-- 顶部banner -->
-        <brand-banner v-if="brandImages" :brandImages = 'brandImages'></brand-banner>
-        <!-- 品牌介绍 start -->
-        <div class="brand-introduce">
-            <div class="name border-bt over bc">
-                <div class="title ellipsis" v-if="brandInfo">{{ brandInfo.company }}</div>
-                <div class="comments">
-                    <div class="concern" @click="popup(2)" v-show="!attention">
-                        <i class="img-bg"><img width="100%" src="/static/images/opportunity/branddetail/icon_attention_normal.png" alt=""></i>
-                        <span class="concern-plus">关注</span>
-                    </div>
-                    <div class="concern" v-show="attention">
-                        <i class="img-bg"><img width="100%" src="/static/images/opportunity/branddetail/icon_attention_normal.png" alt=""></i>
-                        <span class="concern-plus" style="color: #279683;">已关注</span>
-                    </div>
-                    <!-- 跳转到认证页面 -->
-                    <span class="authentication" @click="setCertificate">
-                        <i class="img-bg"></i>
-                        <span class="authenticated">已认证</span>
-                    </span>
-                    <!-- <router-link :to="{name:'authentication'}" class="authentication">
-                        <i class="img-bg"></i>
-                        <span class="authenticated">已认证</span>
-                    </router-link> -->
-                </div>
-            </div>
-             <!-- 品牌投资信息介绍 -->
-            <div class="intro border bc mar-bt">
-                <ul class="investment over">
-                    <li class="investment-volume">
-                        <i><img width="100%" src="/static/images/opportunity/branddetail/icon_rmb.png"></i>
-                        <span>预估总投资额</span><span class="money">{{ brandInfo.invesmentAmount }}</span>
-                    </li>
-                    <li class="investment-info">
-                        <ul>
-                            <li class="" v-if="brandInfo.joinInvestMax">加盟费：{{joinInvest}}万</li>
-                            <li class="">店铺区域：{{brandInfo.joinRequire}}</li>
-                            <li class="">合同期限：{{brandInfo.contractPeriod}}年</li>
-                            <li class="">关注人数：{{brandInfo.focusCount}}人</li>
-                            <li class="main-product">
-                                <span>主营产品：</span>
-                                <span class="main-item" v-if="brandInfo.mainProductList">{{brandInfo.mainProductList|item}}</span>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="investment-condition">
-                        <!-- <router-link to="/" tag="div" class="calculator"> -->
-                        <div class="calculator" @click="popup(1)">
-                            <div class="button_cal">
-                                <img width="100%" src="/static/images/opportunity/branddetail/button_cal.png" class="button_address">
-                            </div>
-                            <p>投资计算器</p>
-                            <div class="arrow">
-                                <img width="100%" src="/static/images/opportunity/branddetail/icon_arrow.png">
-                            </div>
-                        <!-- </router-link> -->
-                        </div>
-                        <router-link :to="{name:'joinarea',query:{brandId}}" tag="div" class="area">
-                            <div class="button_addr">
-                                <img width="100%" src="/static/images/opportunity/branddetail/button_address.png" class="button_address">
-                            </div>
-                            <p>加盟区域</p>
-                            <div class="arrow">
-                                <img width="100%" src="/static/images/opportunity/branddetail/icon_arrow.png">
-                            </div>
-                        </router-link>
-                    </li>
-                </ul>
-            </div>
-            <!-- 盈利预估 -->
-            <div class="profit border-bt bc mar-bt" v-if="brandInfo.tableAnalysis">
-                <h2 class="item border">盈利预估</h2>
-                <div class="profit-table">
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td>预估初始投资总额</td><td>{{brandInfo.invesmentAmount}}</td>
-                                </tr>
-                                <tr>
-                                    <td>预估客单价</td><td>{{brandInfo.tableAnalysis.single}}元/人</td>
-                                    </tr>
-                                <tr>
-                                    <td>预估日客流量</td><td>{{brandInfo.tableAnalysis.dailyFlow}}人/日</td>
-                                    </tr>
-                                <tr>
-                                    <td>预估月销售额</td>
-                                    <td>{{brandInfo.tableAnalysis.monthlySales}}万元</td>
-                                </tr>
-                                <tr>
-                                    <td>预估毛利率</td><td>{{brandInfo.tableAnalysis.grossProfit}}%</td>
-                                </tr>
-                                <tr>
-                                    <td>预估回报周期</td><td>{{brandInfo.returnCycleMin}}~{{brandInfo.returnCycleMax}}个月</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <p>注：以上为预估数值，仅供参考。</p>
-                </div>
-            </div>
-            <!-- 主打产品 -->
-            <div v-if="brandInfo.advantageImg">
-                <div class="product border-bt bc mar-bt" v-if="brandInfo.advantageImg.list.length">
-                    <h2 class="item border">主打产品</h2>
-                    <banner-image v-if="brandInfo" busiType="6" :brandId="brandId" :swiper = "brandInfo.advantageImg"></banner-image>
-                </div>
-            </div>
-
-            <!-- 门店实景 -->
-            <div v-if="brandInfo.outdoorScene">
-                <div class="scenery border-bt bc mar-bt" v-if="brandInfo.outdoorScene.list.length">
-                    <h2 class="item border">门店实景</h2>
-                    <banner-image02 v-if="brandInfo" busiType="3" :brandId="brandId" :swiper = "brandInfo.outdoorScene"></banner-image02>
-                </div>
-            </div>
-            <!-- 品牌视频 -->
-            <div v-if="brandInfo.video">
-                <div class="video border-bt bc mar-bt" v-if="brandInfo.video.list.length">
-                    <h2 class="item border">品牌视频</h2>
-                    <banner-video v-if="brandInfo" :brandId="brandId" :swiper = "brandInfo.video"></banner-video>
-                </div>
-            </div>
-            <!-- 创始人问答区 -->
-            <div class="founder border-bt bc mar-bt" v-if="brandInfo.founderRsp">
-                <!-- 如果有创始人问答内容 -->
-                <h2 class="item border" v-if="brandInfo.founderRsp">
-                    <span>创始人问答区</span>
-                    <span class="question" @click="popup(2)"><img src="/static/images/opportunity/branddetail/icon_comment.png"/>提问与评论</span>
-                </h2>
-                <div class="explain border-bt" v-if="brandInfo.founderRsp">
-                    <div class="prople">
-                        <div class="information over">
-                            <p class="over">
-                                <img width="100%" :src="brandInfo.founderRsp.headUrl">
-                            </p>
-                            <h3>{{brandInfo.founderRsp.founderName}}</h3>
-                            <div class="label">
-                                <span v-for="(item,index) in brandInfo.founderRsp.founderTag" :key="index">{{item}}</span>
-                            </div>
-                        </div>
-                        <div class="synopsis">
-                            <h3>{{brandInfo.founderRsp.introduction}}</h3>
-                            <p>{{brandInfo.founderRsp.bewrite}}</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- 精选回答 start-->
-                    <!-- 如果有精选问答内容 -->
-                <div class="answer" v-if="brandInfo.askRsp">
-                    <h2>
-                        <span>HOT</span><span>精选问答</span>
-                        <span class="question" @click="popup(2)">
-                            <img src="/static/images/opportunity/branddetail/icon_comment.png">提问与评论
-                        </span>
-                    </h2>
-                    <!-- 精选回答内容 start -->
-                    <div class="answerComent">
-                        <div class="answername" v-for="(item,index) in brandInfo.askRsp" :key="index">
-                            <dl class="answerinfo over">
-                                <dt class="avatar">
-                                    <div class="avatar-box img-bg over">
-                                        <img width="100%" :src="item.askHeadUrl" alt="">
-                                    </div>
-                                </dt>
-                                <dd class="avatarname">
-                                    <p class="avatarname-p position-re font-w7">
-                                        <span>{{item.askName}}</span>
-                                        <i class="wen"><img width="100%" height="100%" src="/static/images/opportunity/branddetail/wen.png" alt=""></i>
-                                    </p>
-                                    <p class="answerwen">{{item.problem}}</p>
-                                    <div class="answerReturn position-re">
-                                        <!-- 修饰箭头 -->
-                                        <div class="riangle-up"></div>
-                                        <dl class="answerfounder over">
-                                            <dt class="avatar">
-                                                <div class="avatar-box img-bg over">
-                                                    <img width="100%" :src="item.founderHeadUrl" alt="">
-                                                </div>
-                                            </dt>
-                                            <dd class="">
-                                                <p class="avatarname-p position-re font-w7">
-                                                    <span>创始人&nbsp;{{item.founderName}}</span><i class="da"><img width="100%" height="100%" src="/static/images/opportunity/branddetail/da.png" alt=""></i>
-                                                </p>
-                                                <p class="hello">{{item.answer}}</p>
-                                            </dd>
-                                        </dl>
-                                    </div>
-                                </dd>
-                            </dl>
-                        </div>
-                    </div>
-                     <!-- 精选回答内容 end -->
-                </div>
-                <!-- 精选回答 end -->
-            </div>
-            <div v-if="brandComment">
-                <brand-comment v-if="brandComment.list.length" :brand-comment='brandComment' :brandId="brandId" :popup="popup"></brand-comment>
-            </div>
+        <div v-else-if="loading==2" :class="iframe ? 'change-content':''">
+        <!-- 选项卡 -->
+        <ul class="brand-tab" v-if='iframe'>
+            <li  v-for="item of tab" 
+                :key="item.id" 
+                @click="handlerTabChange(item.id)" 
+                :class="[activetab==item.id ? 'activetab': '']">{{item.title}}</li>
+        </ul>
+        <div v-if="activetab == 2" class="iframeurl">
+            <iframe :src="outurl" scrolling="auto" frameborder="0" width="100%" height="100%"></iframe>
         </div>
-        <!-- 品牌介绍 end -->
+        <div v-if="activetab == 1" class="detailurl">
+            <!-- 品牌介绍 start -->
+            <brand-banner v-if="brandImages" :brandImages = 'brandImages'></brand-banner>
+            <div class="brand-introduce">
+                <div class="name border-bt over bc">
+                    <div class="title ellipsis" v-if="brandInfo">{{ brandInfo.company }}</div>
+                    <div class="comments">
+                        <div class="concern" @click="mineAttention"> 
+                            <div v-show="!attention">
+                                <i class="img-bg"><img width="100%" src="/static/images/opportunity/branddetail/icon_attention_normal.png" alt=""></i>
+                                <span class="concern-plus">关注</span>
+                            </div>
+                            <div v-show="attention">
+                                <i class="img-bg"><img width="100%" src="/static/images/opportunity/branddetail/icon_attention_hover@3x.png" alt=""></i>
+                                <span class="concern-plus" style="color: #279683;">已关注</span>
+                            </div>
+                        </div>
+                        <!-- 跳转到认证页面 -->
+                        <span class="authentication" @click="setCertificate">
+                            <i class="img-bg"></i>
+                            <span class="authenticated">已认证</span>
+                        </span>
+                    </div>
+                </div>
+                <!-- 品牌投资信息介绍 -->
+                <div class="intro border bc mar-bt">
+                    <ul class="investment over">
+                        <li class="investment-volume">
+                            <i><img width="100%" src="/static/images/opportunity/branddetail/icon_rmb.png"></i>
+                            <span>预估总投资额</span><span class="money">{{ brandInfo.invesmentAmount }}</span>
+                        </li>
+                        <li class="investment-info">
+                            <ul>
+                                <li class="" v-if="brandInfo.joinInvestMax">加盟费：{{joinInvest}}万</li>
+                                <li class="">店铺区域：{{brandInfo.joinRequire}}</li>
+                                <li class="">合同期限：{{brandInfo.contractPeriod}}年</li>
+                                <li class="">关注人数：{{brandInfo.focusCount}}人</li>
+                                <li class="main-product">
+                                    <span>主营产品：</span>
+                                    <span class="main-item" v-if="brandInfo.mainProductList">{{brandInfo.mainProductList|item}}</span>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="investment-condition">
+                            <!-- <router-link to="/" tag="div" class="calculator"> -->
+                            <div class="calculator" @click="popup(1)">
+                                <div class="button_cal">
+                                    <img width="100%" src="/static/images/opportunity/branddetail/button_cal.png" class="button_address">
+                                </div>
+                                <p>投资计算器</p>
+                                <div class="arrow">
+                                    <img width="100%" src="/static/images/opportunity/branddetail/icon_arrow.png">
+                                </div>
+                            <!-- </router-link> -->
+                            </div>
+                            <router-link :to="{name:'joinarea',query:{brandId}}" tag="div" class="area">
+                                <div class="button_addr">
+                                    <img width="100%" src="/static/images/opportunity/branddetail/button_address.png" class="button_address">
+                                </div>
+                                <p>加盟区域</p>
+                                <div class="arrow">
+                                    <img width="100%" src="/static/images/opportunity/branddetail/icon_arrow.png">
+                                </div>
+                            </router-link>
+                        </li>
+                    </ul>
+                </div>
+                <!-- 盈利预估 -->
+                <div class="profit border-bt bc mar-bt" v-if="brandInfo.tableAnalysis">
+                    <h2 class="item border">盈利预估</h2>
+                    <div class="profit-table">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>预估初始投资总额</td><td>{{brandInfo.invesmentAmount}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>预估客单价</td><td>{{brandInfo.tableAnalysis.single}}元/人</td>
+                                        </tr>
+                                    <tr>
+                                        <td>预估日客流量</td><td>{{brandInfo.tableAnalysis.dailyFlow}}人/日</td>
+                                        </tr>
+                                    <tr>
+                                        <td>预估月销售额</td>
+                                        <td>{{brandInfo.tableAnalysis.monthlySales}}万元</td>
+                                    </tr>
+                                    <tr>
+                                        <td>预估毛利率</td><td>{{brandInfo.tableAnalysis.grossProfit}}%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>预估回报周期</td><td>{{brandInfo.returnCycleMin}}~{{brandInfo.returnCycleMax}}个月</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p>注：以上为预估数值，仅供参考。</p>
+                    </div>
+                </div>
+                <!-- 主打产品 -->
+                <div v-if="brandInfo.advantageImg">
+                    <div v-if="brandInfo.advantageImg.list">
+                        <div class="product border-bt bc mar-bt" v-if="brandInfo.advantageImg.list.length">
+                            <h2 class="item border">主打产品</h2>
+                            <banner-image v-if="brandInfo" busiType="6" :brandId="brandId" :swiper = "brandInfo.advantageImg"></banner-image>
+                        </div>
+                    </div>
+                </div>
+                <!-- 门店实景 -->
+                <div v-if="brandInfo.outdoorScene">
+                    <div v-if="brandInfo.outdoorScene.list">
+                        <div class="scenery border-bt bc mar-bt" v-if="brandInfo.outdoorScene.list.length">
+                            <h2 class="item border">门店实景</h2>
+                            <banner-image02 v-if="brandInfo" busiType="3" :brandId="brandId" :swiper = "brandInfo.outdoorScene"></banner-image02>
+                        </div>
+                    </div>
+                </div>
+                <!-- 品牌视频 -->
+                <div v-if="brandInfo.video">
+                    <div class="video border-bt bc mar-bt" v-if="brandInfo.video.list.length">
+                        <h2 class="item border">品牌视频</h2>
+                        <banner-video v-if="brandInfo" :brandId="brandId" :swiper = "brandInfo.video"></banner-video>
+                    </div>
+                </div>
+                <!-- 创始人问答区 -->
+                <div class="founder border-bt bc mar-bt" v-if="brandInfo.founderRsp">
+                    <!-- 如果有创始人问答内容 -->
+                    <h2 class="item border" v-if="brandInfo.founderRsp">
+                        <span>创始人问答区</span>
+                        <span class="question" @click="popup(2)"><img src="/static/images/opportunity/branddetail/icon_comment.png"/>提问与评论</span>
+                    </h2>
+                    <div class="explain border-bt" v-if="brandInfo.founderRsp">
+                        <div class="prople">
+                            <div class="information over">
+                                <p class="over">
+                                    <img width="100%" :src="brandInfo.founderRsp.headUrl">
+                                </p>
+                                <h3>{{brandInfo.founderRsp.founderName}}</h3>
+                                <div class="label">
+                                    <span v-for="(item,index) in brandInfo.founderRsp.founderTag" :key="index">{{item}}</span>
+                                </div>
+                            </div>
+                            <div class="synopsis">
+                                <h3>{{brandInfo.founderRsp.introduction}}</h3>
+                                <p>{{brandInfo.founderRsp.bewrite}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 精选回答 start-->
+                        <!-- 如果有精选问答内容 -->
+                    <div class="answer" v-if="brandInfo.askRsp">
+                        <h2>
+                            <span>HOT</span><span>精选问答</span>
+                            <span class="question" @click="popup(2)">
+                                <img src="/static/images/opportunity/branddetail/icon_comment.png">提问与评论
+                            </span>
+                        </h2>
+                        <!-- 精选回答内容 start -->
+                        <div class="answerComent">
+                            <div class="answername" v-for="(item,index) in brandInfo.askRsp" :key="index">
+                                <dl class="answerinfo over">
+                                    <dt class="avatar">
+                                        <div class="avatar-box img-bg over">
+                                            <img width="100%" :src="item.askHeadUrl" alt="">
+                                        </div>
+                                    </dt>
+                                    <dd class="avatarname">
+                                        <p class="avatarname-p position-re font-w7">
+                                            <span>{{item.askName}}</span>
+                                            <i class="wen"><img width="100%" height="100%" src="/static/images/opportunity/branddetail/wen.png" alt=""></i>
+                                        </p>
+                                        <p class="answerwen">{{item.problem}}</p>
+                                        <div class="answerReturn position-re">
+                                            <!-- 修饰箭头 -->
+                                            <div class="riangle-up"></div>
+                                            <dl class="answerfounder over">
+                                                <dt class="avatar">
+                                                    <div class="avatar-box img-bg over">
+                                                        <img width="100%" :src="item.founderHeadUrl" alt="">
+                                                    </div>
+                                                </dt>
+                                                <dd class="">
+                                                    <p class="avatarname-p position-re font-w7">
+                                                        <span>创始人&nbsp;{{item.founderName}}</span><i class="da"><img width="100%" height="100%" src="/static/images/opportunity/branddetail/da.png" alt=""></i>
+                                                    </p>
+                                                    <p class="hello">{{item.answer}}</p>
+                                                </dd>
+                                            </dl>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <!-- 精选回答内容 end -->
+                    </div>
+                    <!-- 精选回答 end -->
+                </div>
+                <div v-if="brandComment.list">
+                    <brand-comment v-if="brandComment.list.length" :brand-comment='brandComment' :brandId="brandId" :popup="popup"></brand-comment>
+                </div>
+                <div class="footer">
+                    <div class="icon-button" @click="mineAttention">
+                        <!-- <div class="icon-share">
+                            <i><img src="/static/images/common/icon_fenxiang@2x.png" alt=""></i>
+                            <span>分享</span>
+                        </div>  
+                        <div class="column-line"></div>           -->
+                        <div class="icon-concern" v-show="!attention">
+                            <i><img src="/static/images/common/icon_follow@2x.png" alt=""></i>
+                            <span>关注</span>
+                        </div>
+                        <div class="icon-concern" v-show="attention">
+                            <i><img src="/static/images/common/icon_follow_hover@2x.png" alt=""></i>
+                            <span>关注</span>
+                        </div>
+                    </div>
+                    
+                    <div class="icon-contact" @click="contactConsultant">
+                        <i><img src="/static/images/common/user_03.png" alt=""></i>
+                        <span>创业顾问</span>
+                    </div>
+                </div>
+            </div>
+            <!-- 品牌介绍 end -->
+        </div>
+        <!-- 顶部banner -->
         <!-- 提示下载app  投资计算器-->
         <div class="mask" v-if="pointToAppCalcul" @click="hide(1)">
             <img class="calculatorTag position" src="/static/images/opportunity/branddetail/fenxiang.png">
@@ -226,8 +261,9 @@
     </div>
 </template>
 <script>
-
+import Vue from 'vue'
 import utils from '@/modules/utils.js'
+import config from '@/modules/http'
 
 import HeaderTitle from '@/pages/components/HeaderTitle.vue'
 import BrandBanner from './BrandBanner.vue'
@@ -241,15 +277,28 @@ export default {
   data () {
     return {
       title: '',
+      tab: [
+          {id: 1,title: '品牌详情'},
+          {id: 2,title: '资料官网'}
+      ],
+      activetab: 1,
 
       loading: 1,
       brandId: '', // 品牌id动态路由
       brandInfo: '',
       brandImages: '',
       pointToAppCalcul: false, // 点击计算器，控制显示
-      pointToAppQuest: false, // 点击提问与评论，控制显示
+      pointToAppQuest: false,  // 点击提问与评论，控制显示
       brandComment: '',
-      attention: false // 关注
+      attention: false, // 关注
+      iframe: true,
+      activetab: true,
+      outurl:'',
+
+      uid: '',
+      mobile: '',
+      sdktoken: '',
+      accesstoken: ''
     }
   },
   filters: { // 组件的选项中定义本地的过滤器
@@ -277,23 +326,67 @@ export default {
     }
   },
   methods: {
+    contactConsultant(){ // 点击创业顾问
+        // 判断是否登录，获取sessionId
+        this.uid = utils.getCookie('uid')
+        this.sdktoken = utils.getCookie('sdktoken')
+        this.mobile = utils.getCookie('mobile')
+        if (!this.uid && !this.mobile && !this.sdktoken) {
+            this.$router.push({name: 'login'})
+        } else {
+            // location.href="http://localhost:3000/webdemo/h5/index.html#/chat/p2p-9c09d7a4417c406293a115a8e41901c9"
+            this.getSessionId()
+        }
+    },
+    getSessionId () {
+        let params = {
+        'params': {
+            'customerIM': this.uid,
+            'customerPhone': this.mobile
+        }
+        }
+        this.$http.post(this.baseurl + '/im/getimaccount', params).then(res => {
+        if(res.data.code == 200){
+            let sessionId = res.data.data
+            utils.setCookie('sessionId', sessionId)
+            // console.log(sessionId)
+            var sendImageUrl = ''
+            if(this.brandInfo.logo){
+                sendImageUrl = this.brandInfo.logo
+            }
+            let frombrand = {
+                sendBrandID : this.brandId,
+                sendImageUrl : sendImageUrl,    // 消息中的图片地址
+                titleName  : this.title,        // 消息标题
+                subTitle: this.joinInvest + '万'       // 消息描述
+            }
+            // 页面的id,存储图片，品牌，投资额
+            utils.setCookie('frombrand', JSON.stringify(frombrand))
+            // console.log(frombrand)
+            // 跳转
+            location.href = config.imChat + sessionId
+            }
+        })
+    },
+    handlerTabChange(id){  // 切换选项卡
+        this.activetab = id
+    },
     getBrandIdDetail () {
       let {brandId} = this
       let params = {
-        'apiUrl': this.weburl + 'mobile/share/getBrand',
-        'method': 'get',
-        'params': {
-          'brandId': brandId
-        }
+        'brandId': brandId
       }
-      // this.$http.get('/kd/mobile/share/getBrand', {params: {brandId}}).then((res) => {
-      this.$http.post(this.baseurl + '/brand/api', params).then((res) => {
+      this.$http.post(this.baseurl + '/home/detailbrand', params).then((res) => {
           if(res.data.code==200){
                 this.brandInfo = res.data.data
+                this.loading = 2
                 this.brandImages = res.data.data.promotes // 顶部的轮播
                 this.brandComment = res.data.data.phoneComment
                 this.title = this.brandInfo.brandName
-                this.loading = 2
+                this.attention = res.data.data.attention
+
+                this.iframe = res.data.data.hasouturl
+                this.outurl = res.data.data.outurl
           }
       })
     },
@@ -308,13 +401,53 @@ export default {
     // 点击我的关注
     mineAttention () {
       // 取cookie 判断是否登录，如果未登录跳转到登录页面，如果登录，请求，关注成功后，改变样式
-      var accesstoken = utils.getCookie('accesstoken')
-      if (accesstoken) {
-        this.router.push({name: 'login'})
+      this.accesstoken = utils.getCookie('accesstoken')
+      if (!this.accesstoken) {
+          this.$router.push({name: 'login'})
       } else {
-        this.$http().then(res => {
-          this.attention = true
-        })
+          if(this.attention){
+            var params = {
+                    "do": "unfollow",
+                    "busId": this.brandId
+                }
+                this.$http.post(this.baseurl + '/home/dobrandfollow',params).then(res => {
+                    if(res.data.code == 200){
+                        this.attention = false
+                        utils.mobileTip({
+                            "obj":Vue,
+                            "content":"取消关注"
+                        })
+                    }
+                })
+                .catch((error) => {
+                //   console.log(error.response.data)
+                  utils.mobileTip({
+                        "obj":Vue,
+                        "content":"取消关注失败，请稍后重试"
+                    })
+                })
+          }else{
+              var params = {
+                    "do": "follow",
+                    "busId": this.brandId
+                }
+              this.$http.post(this.baseurl + '/home/dobrandfollow',params).then(res => {
+                if(res.data.code == 200){
+                    this.attention = true
+                    utils.mobileTip({
+                        "obj":Vue,
+                        "content":"关注成功"
+                    })
+                }
+              })
+               .catch((error) => {
+                    // console.log(error.response.data)
+                    utils.mobileTip({
+                        "obj":Vue,
+                        "content":"关注失败，请稍后重试"
+                    })
+                })
+          }
       }
     },
     // 点击投资计算器
@@ -357,6 +490,118 @@ export default {
 *{
     box-sizing: border-box;
 }
+.detailurl{
+    padding-bottom: 98/@rem;
+}
+.iframeurl{
+    position: absolute;
+    top: 188/@rem;
+    right: 0;left:0;
+    bottom:0;
+    height: 100vh;
+}
+.change-content{
+    padding-top: 100/@rem;
+    .brand-tab{
+        position: fixed;
+        top: 88/@rem;left:0;right:0;
+        width: 100%;
+        height: 100/@rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #ffffff;
+        z-index: 10;
+        li{
+            width: 160/@rem;
+            height:64/@rem;
+            line-height: 64/@rem;
+            border: 1px solid #35AEB6;
+            font-size: 26/@rem;
+            text-align: center;
+            color: #35AEB6;
+        }
+        li:first-child{
+            border-right: none;
+            border-radius:8/@rem 0 0 8/@rem;            
+        }
+        li:last-child{
+            border-left: none;
+            border-radius: 0 8/@rem 8/@rem 0;
+        }
+        .activetab{
+            background: #35AEB6;
+            color: #ffffff;
+        }
+    }
+}
+.footer{
+    position: fixed;
+    width: 100%;
+    height: 98/@rem;
+    bottom: 0;right: 0;
+    background: #f0f0f0;
+    font-size: 20/@rem;
+    color: #333333;
+    display: flex;
+    z-index: 9;
+    .icon-button{
+        display: flex;
+        flex: 1;
+        height: 98/@rem;
+        text-align: center;
+        justify-content: center;
+        position: relative;;
+        padding: 14/@rem 0 10/@rem;
+        .icon-share,.icon-concern{
+            // width: 50%;
+            span{
+                display: block;
+                line-height: 20/@rem;
+            }
+        }
+        i{
+            display: block;
+            // margin-bottom: 10/@rem;
+            img{
+                width: 44/@rem;
+                height: 44/@rem;
+            }
+            
+        }
+    }
+    .icon-contact{
+        width: 402/@rem;
+        line-height: 98/@rem;
+        font-size: 28/@rem;
+        color: #ffffff;
+        text-align: center;
+        background: #1ca998;
+        font-weight: 600;
+        i{
+            img{
+                width: 42/@rem;
+                height: 46/@rem;
+                margin-right: 15/@rem;
+                display: inline-block;
+                vertical-align: middle;
+            }
+        }
+        
+    }
+    .column-line{
+        position:absolute;
+        width: 1px;
+        height: 70/@rem;
+        background: #cbcbcb;
+        bottom: 10/@rem;
+        left: 50%;
+        -webkit-transform: translate3d(-50%,0, 0);
+        -ms-transform: translate3d(-50%, 0, 0);
+        transform: translate3d(-50%, 0, 0);
+    }
+
+}
 .babaliang{
     position: relative;
     img{
@@ -372,12 +617,12 @@ export default {
 .riangle-up{  // 修饰箭头
     width: 0;
     height: 0;
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-bottom: 8px solid #f4f4f4;
+    border-left: 22/@rem solid transparent;
+    border-right: 22/@rem solid transparent;
+    border-bottom: 22/@rem solid #f4f4f4;
     position: absolute;
-    left: 1em;
-    top: -0.5em;
+    left: 27/@rem;
+    top: -16/@rem;
 }
 
 .mask{
@@ -452,19 +697,22 @@ export default {
 .name{
     display: flex;
     justify-content: space-between;
-    padding: 34/@rem 24/@rem 30/@rem;
+    // padding: 34/@rem 24/@rem 30/@rem;
+    padding: 0 24/@rem;
     margin-bottom: 6/@rem;
     .title{
         width: 410/@rem;
         font-size: 32/@rem;
-        line-height: 32/@rem;
+        line-height: 96/@rem;
+        font-weight: 600;
     }
     .comments{
         display: flex;
+        align-items: center;
         font-size: 28/@rem;
         color:#666666;
         line-height: 33/@rem;
-        .concern{
+        .concern>div{
             display: flex;
             margin-right: 37/@rem;
             i{
@@ -750,7 +998,8 @@ export default {
     .answerwen{
         line-height: 36/@rem;
         font-size: 26/@rem;
-        margin-bottom:15/@rem;
+        // margin-bottom:15/@rem;
+        margin-bottom: 27/@rem;
     }
 }
 // 回答

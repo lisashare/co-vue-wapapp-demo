@@ -39,7 +39,7 @@ export default {
       let {info} = this
       info.pageNum = page.num
       info.pageSize = page.size
-      this.$http.get(this.baseurl+'/user/follows',info).then((res) => {
+      this.$http.get(this.baseurl + '/user/follows',info).then((res) => {
         if(res.data.code == 200){
             var listdata=res.data
             if(listdata.data.length!==0){

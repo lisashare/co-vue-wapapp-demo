@@ -36,8 +36,7 @@ switch(process.env.srconfig){
 //   baseurl
 // }
 var imurl = '/';
-// var imurl = 'http://localhost:3000/webdemo/h5/';
-
+// var imurl = ' http://localhost:3000/webdemo/h5/';
 let config = {
   // 聊天
   imSession: imurl + 'im.html#/session',
