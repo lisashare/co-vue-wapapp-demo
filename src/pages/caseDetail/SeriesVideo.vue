@@ -5,7 +5,7 @@
               <a v-if="list.vodEntity">
                 <img v-if="list.vodEntity.cover" :src="list.vodEntity.cover||'/static/images/background_img/active.png'">
                 <p>
-                  <router-link :to = "{name:'casedetail',query:{infoId:list.informationId}}" tag = "img" @click.native="flushCom" width="100%" src="/static/images/opportunity/branddetail/bofang.png" alt=""></router-link>
+                  <router-link :to = "{name:'casedetail',query:{infoId:list.informationId}}" tag = "img" @click.native="flushCom(list.title)" width="100%" src="/static/images/opportunity/branddetail/bofang.png" alt=""></router-link>
                 </p>
               </a>
               <div class="title" v-if="list.title">{{list.title}}</div>
@@ -80,10 +80,12 @@ export default {
         })
       }
     },
-    flushCom:function(){
+    flushCom (title) {
 　　　//router是路由实例,例如:var router = new Router({})
 　　　//router.go(n)是路由的一个方法，意思是在history记录中前进或者后退多少步，0就表示还是当前，类似window.history.go(n)
       // this.$router.go(0);
+
+      window._vds.track("wap_find_details_video",{ "fx_name": title });  // 发现详情页-相关视频
       window.location.reload()
 　　}
   },

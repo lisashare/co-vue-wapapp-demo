@@ -180,7 +180,8 @@ export default {
     left: 0;
     top: 0;
     .toast-tip {
-      font-size: 18/@rem;
+      //font-size: 18/@rem;
+      font-size: 24/@rem;
       color: #fff;
       width: 400/@rem;
       height: 44/@rem;

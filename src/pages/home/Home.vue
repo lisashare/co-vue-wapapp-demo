@@ -5,7 +5,7 @@
     <home-swipersub :list="liveVideoList" :isVr="false">商评</home-swipersub>
     <home-guarantee></home-guarantee>
     <home-recommend></home-recommend>
-    <floating></floating>
+    <floating :name="name"></floating>
   </div>
 </template>
 
@@ -27,6 +27,8 @@ export default {
   },
   data () {
     return {
+      name: '首页',
+
       swiperList: [],
       paramJson: {
           "params": {

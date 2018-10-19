@@ -83,7 +83,7 @@ export default {
           let tmp = res.data.data.brandList
           let list = res.data.data.brandList.list
           // console.log(tmp.total)
-          console.log(Math.floor(tmp.total/tmp.pageSize))
+          // console.log(Math.floor(tmp.total/tmp.pageSize))
           if ( Math.ceil(tmp.total/tmp.pageSize) < paramJson.params.brand_list.pageNum ) {
             list.length = 0
           }

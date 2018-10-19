@@ -33,6 +33,7 @@
                     :supportStatus="likes"
                     :supportTotal="likeNumber"
                     :isCollect="collFlag"
+                    :title="videoTitle"
                   ></pro-manage>
                 </p>
               </div>

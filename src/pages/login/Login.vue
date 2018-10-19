@@ -132,13 +132,14 @@ export default {
           //console.log( $route.params.path )
           //utils.setStore("tempUrl", $route.params.path)
           // console.log(data)
+
+          window._vds.track("login",{ "user_id": data.account_id});  // 埋点
+          
           utils.setCookie('accountId', data.account_id)
           utils.setCookie('mobile', this.mobile)
           utils.setCookie('accesstoken', data.access_token)
           utils.setCookie('uid', data.nim_id)
           utils.setCookie('sdktoken', data.nim_token)
-
-
 
           /*//返回原来页面
           if( utils.getStore("tempUrl") =='session' ){
@@ -263,7 +264,7 @@ export default {
     left: 0;
     top: 0;
     .toast-tip {
-      font-size: 18/@rem;
+      font-size: 24/@rem;
       color: #fff;
       width: 400/@rem;
       height: 44/@rem;

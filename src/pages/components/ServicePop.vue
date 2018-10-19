@@ -10,7 +10,7 @@
           在线咨询
         </a>
         <!-- <a @click="phoneCall" class="call"> -->
-        <a class="call" href="tel:010-53579588">
+        <a class="call" @click="phoneCall" href="tel:010-53579588">
           <span class="icon-call"></span>
           拨打电话
         </a>
@@ -24,7 +24,14 @@ import config from '@/modules/http'
 import utils from '@/modules/utils'
 export default {
   name: 'ServicePop',
-  props: ["isTelShow","closeTel"],
+  props: {
+    isTelShow: Boolean,
+    closeTel: Function,
+    name:{
+      type: String,
+      default: ''
+    },
+  },
   data () {
     return {
       uid: '',
@@ -35,7 +42,10 @@ export default {
   methods: {
     //拨打电话
     phoneCall () {
-      window.location.href = 'tel:010-53579588'
+      // window.location.href = 'tel:010-53579588'
+      if(this.name){
+        window._vds.track("wap_ims",{ "source": this.name + "-拨打电话" });  // 埋点
+      }
     },
     //在线聊天
     getSessionId () {
@@ -54,8 +64,18 @@ export default {
           location.href = config.imChat + sessionId
           }
       })
+      .catch((error) => {
+          if(error.response.status == 401){
+              utils.clearCookie()
+              this.$router.push({name:'login'})       
+          }
+      })
     },
     goChat () {
+      if(this.name){
+        window._vds.track("wap_ims",{ "source": this.name + "-在线咨询" }); // 埋点
+      }
+      
       this.uid = utils.getCookie('uid')
       this.sdktoken = utils.getCookie('sdktoken')
       this.mobile = utils.getCookie('mobile')

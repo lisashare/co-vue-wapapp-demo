@@ -133,17 +133,25 @@ export default {
       paramJson.params.pageNum = page.num
       paramJson.params.pageSize = page.size
       this.$http.post(this.baseurl+'/collect/collect-list', paramJson).then((res) => {
-        console.log(res.data.data)
+        var pages = res.data.data.pages
+        let list = res.data.data.list
+        // console.log(res.data.data.list)
+        // console.log(pages)
         if (res.data.code == 200) {
-          if( res.data.data.length!==0 ){
-            this.vrListData = this.vrListData.concat(res.data.data)
+          if( res.data.data.list.length!==0 ){
+            if(pages<paramJson.params.pageNum){
+              list.length = 0
+              this.$refs.mescroll.endSuccess(list.length)
+              return
+            }
+            this.vrListData = this.vrListData.concat(res.data.data.list)
           }else{
             this.$refs.mescroll.endErr() //停止加载转圈
-            console.log(res.data.data.length)
+            console.log(res.data.data.list.length)
             this.imgShow=true
             return
           }
-          let list = res.data.data
+          //let list = res.data.data.list
           this.$refs.mescroll.endSuccess(list.length)
         }
       }).catch((error) => {

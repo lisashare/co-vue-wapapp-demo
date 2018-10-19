@@ -102,16 +102,16 @@ a:hover {
   width: 3.38rem;
   height: 3.38rem;
 }
-@-webkit-keyframes rotation {
+@keyframes rotation {
   from {
-    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
   }
   to {
-    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 }
 .loading-animation .Rotation {
-  -webkit-transform: rotate(360deg);
+  transform: rotate(360deg);
   animation: rotation 2s linear infinite;
   -moz-animation: rotation 2s linear infinite;
   -webkit-animation: rotation 2s linear infinite;

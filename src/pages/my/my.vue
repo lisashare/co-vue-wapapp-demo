@@ -117,7 +117,7 @@ export default {
 				}
 
 			}).catch((error) => {
-			  console.log(error)
+			//   console.log(error)
 			  this.clearAllCookie()//清掉cookie
 			  this.ungetMyinfo() //未登录
 			  // if(error.status==401){

@@ -14,8 +14,6 @@ export default new Router({
         title: '这是商机盒子首页',
         desc: '欢迎来到商机盒子',
         timelineTitle: '欢迎点击关注商机盒子，商机多多',
-        //link: window.location.href.split('#')[0]+'#'+window.location.href.split('#')[1],
-        //imgUrl: 'http://kdwap-frontend-test.kuaidaoapp.com/static/images/home/icon_bao@3x.png'
         imgUrl: 'http://kdwap-frontend-test.kuaidaoapp.com/static/images/home/wxshare.png'
       }
     },
@@ -33,7 +31,6 @@ export default new Router({
         title: '这是商评列表页',
         desc: '欢迎来到商机盒子商评列表页',
         timelineTitle: '欢迎点击关注商评列表页,评论多多',
-        //link: window.location.href.split('#')[0]+'#'+window.location.href.split('#')[1],
         imgUrl: 'http://kdwap-frontend-test.kuaidaoapp.com/static/images/home/icon_bao@3x.png'
       }
     },
@@ -59,16 +56,12 @@ export default new Router({
     {path: '/joinarea', name: 'joinarea', component: () => import('@/pages/joinArea/JoinArea')},
     {path: '/hotnews', name: 'hotnews', component: () => import('@/pages/hotNews/HotNews')},
     {path: '/searchcase', name: 'search1', component: () => import('@/common/search/SearchCase')},
-    // {path: '/chat',name: 'chat',component: ()=>import('@/pages/chat/Chat')},
-    // {path: '/message',name: 'message',component: ()=>import('@/pages/message/Message')},
-    // {path: '/sysmsgs',name: 'sysmsgs~',component: ()=>import('@/pages/sysMsgs/SysMsgs.vue')},
-    // {path:'',redirect:'/home'},
+
     {path: '/case', name: 'case', component: () => import('@/pages/case/Case')},
     {path: '/casedetail', name: 'casedetail', component: () => import('@/pages/caseDetail/CaseDetail')},
     {path: '/casesearch', name: 'casesearch', component: () => import('@/pages/casesearch/casesearch')},
     {path: '/my', name: 'my', component: () => import('@/pages/my/My')},
     {path: '/mycollect', name: 'mycollect', component: () => import('@/pages/mycollect/MyCollect')},
     {path: '/myfocus', name: 'myfocus', component: () => import('@/pages/my/MyFocus')},
-     // {path:'',redirect:'/home'},
   ]
 })

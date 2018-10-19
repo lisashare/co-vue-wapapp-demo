@@ -47,7 +47,11 @@ export default {
   },
   created(){
     if(this.swiper.size !== this.swiper.total){
-      this.info.pageSize = this.swiper.total
+      if(this.swiper.total>100){
+        this.info.pageSize = 100
+      }else{
+        this.info.pageSize = this.swiper.total
+      }
       this.imageLoadOver()
     }
     

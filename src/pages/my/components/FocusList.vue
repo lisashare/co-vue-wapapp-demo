@@ -14,6 +14,8 @@
 </template>
 
 <script>
+import Vue from 'vue'
+import utils from '@/modules/utils.js'
 import mescroll from '@/common/mescroll/Mescroll.vue' /* 分页组件 */
 import BrandListItem from '@/common/brandListItem/BrandListItem'
 export default {
@@ -39,26 +41,28 @@ export default {
       let {info} = this
       info.pageNum = page.num
       info.pageSize = page.size
-      this.$http.get(this.baseurl + '/user/follows',info).then((res) => {
+      this.$http.get(this.baseurl + '/user/follows',{params:{pageNum:info.pageNum,pageSize:info.pageSize}}).then((res) => {
         if(res.data.code == 200){
-            var listdata=res.data
-            if(listdata.data.length!==0){
-              this.listBrandByTags = this.listBrandByTags.concat(res.data.data.list)
-            }else{
-              this.$refs.mescroll.endErr() //停止加载转圈
-              console.log(listdata.length)
-              this.imgShow=true
-              return
-            }
-            
-            let list = res.data.data.list
-            this.$refs.mescroll.endSuccess(list.length)
+          if(res.data.data.length==0){
+            this.imgShow=true
+            this.$refs.mescroll.endSuccess(res.data.data.length)
+            return
+          }
+          let list = res.data.data.list
+          if( res.data.data.pages < info.pageNum ){
+            list.length = 0;
+          }
+          this.$refs.mescroll.endSuccess(list.length)
+          this.listBrandByTags = this.listBrandByTags.concat(res.data.data.list)       
         }
       }).catch((error) => {
-          this.$refs.mescroll.endErr() //停止加载转圈
+          this.$refs.mescroll.endErr() 
           // 401时候
           // 跳转登录
-          this.$router.push({name:'my'})          
+          if(error.response.status == 401){
+              utils.clearCookie()
+              this.$router.push({name:'my'})          
+          }
       })
     }
   }

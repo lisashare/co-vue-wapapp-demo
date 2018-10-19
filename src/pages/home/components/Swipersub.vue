@@ -2,7 +2,7 @@
   <div class="Searchsub" v-if="list[0]">
     <div class="title clear"><slot></slot><router-link  class="more" tag="span" to="/shangping">更多<em class="icon-rightarrow"></em></router-link></div>
     <div class="swiper-top">
-      <router-link tag="a" :to="{name:'videodetail',query:{videoId:list[0].uuid}}">
+      <router-link tag="a" :to="{name:'videodetail',query:{videoId:list[0].uuid}}" @click.native="goDetail(list[0].title)">
         <img :src="list[0].hitImage1" />
         <!-- <img v-if="isVr" class="vrImg" src="/static/images/home/icon/icon_VR.png" /> -->
       </router-link>
@@ -12,11 +12,12 @@
         <swiper-slide class="swiper" v-for = "(slide, index) in list" :key = "index" v-if="index>0">
               <!-- <router-link :to="{name:'branddetail',query:{brandId:slide.attach.brandId}}" tag="img" :src="slide.cover" width="100%"></router-link> -->
               <router-link
-                            tag="img"
-                            v-if="slide.hitImage2"
-                            :src="slide.hitImage2"
-                            width="100%"
-                            :to="{name:'videodetail',query:{videoId:slide.uuid}}">
+                  tag="img"
+                  v-if="slide.hitImage2"
+                  :src="slide.hitImage2"
+                  width="100%"
+                  :to="{name:'videodetail',query:{videoId:slide.uuid}}"
+                  @click.native="goDetail(slide.title)">
                </router-link>
         </swiper-slide>
         <div class="swiper-pagination" slot="pagination"></div>
@@ -52,6 +53,11 @@ export default {
   computed: {
     isShow () {
       return this.list.length
+    }
+  },
+  methods:{
+    goDetail (title) {
+      window._vds.track("wap_review_list",{ "shangping": title,"act_source": "首页-商评"});
     }
   }
 }

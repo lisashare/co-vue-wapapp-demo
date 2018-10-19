@@ -2,11 +2,11 @@
   <div class="header-search" id="search">
     <div class="search-header bc line-bottom sear">
       <i class="icon-left" v-on:click = "$router.go(-1)"></i>
-      <router-link to="/search" tag="div" class="search-inp">
+      <router-link :to="to" tag="div" class="search-inp">
           <i class="fdj"></i>
           <input type="search" name="search" class="name" autocomplete="off" :placeholder="placeholder"/>
       </router-link>
-      <span class="header-contact-customer" @click="isTelShow=!isTelShow"></span>
+      <span class="header-contact-customer" @click="telShow"></span>
       <span class="header-nav" @click="isNavShow=!isNavShow"></span>
     </div>
     <nav-list
@@ -16,7 +16,8 @@
 
     <service-pop
       :closeTel="closeTel"
-      :isTelShow="isTelShow">
+      :isTelShow="isTelShow"
+      :name="name">
     </service-pop>
   </div>
 </template>
@@ -28,6 +29,14 @@ export default {
   name: 'HeaderSearch',
   components: {NavList,ServicePop},
   props: {
+    name:{
+      type: String,
+      default: ''
+    },
+    to:{
+      type: String,
+      default: '/search'
+    },
     placeholder: {
       type: String,
       default: '请输入关键字'
@@ -36,19 +45,25 @@ export default {
   data () {
     return {
       isNavShow: false,
-      isTelShow: false
+      isTelShow: false,
     }
   },
+  created () {
+    console.log(this.name)
+  },
   methods: {
-    phoneCall () {
-      window.location.href = 'tel:010-53579588'
-    },
     closeNav () {
       this.isNavShow = false
     },
     closeTel () {
       this.isTelShow = false;
     },
+    telShow () {
+      this.isTelShow = !this.isTelShow
+      if(this.isTelShow && this.name){ // 如果isTelShow=true 记录埋点
+        window._vds.track("wap_ims",{ "source": this.name + "-电话按钮" });
+      }
+    }
   }
 }
 </script>

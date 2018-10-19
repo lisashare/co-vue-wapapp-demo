@@ -29,7 +29,7 @@ Vue.use(ToastPlugin)
 Vue.config.productionTip = true
 
 //微信分享
-import wxShare from './modules/wxShare'
+/*import wxShare from './modules/wxShare'
 Vue.prototype.$wxShare = wxShare
 router.afterEach(( to, from ) => {
   wxShare({
@@ -38,7 +38,7 @@ router.afterEach(( to, from ) => {
     link: to.meta.link,
     imgUrl: to.meta.imgUrl
   })
-})
+})*/
 
 
 /* eslint-disable no-new */

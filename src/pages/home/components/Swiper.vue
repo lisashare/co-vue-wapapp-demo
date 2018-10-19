@@ -7,7 +7,7 @@
         {{this.city}}
       </router-link> -->
       <!-- <div class="kefuIcon" @click="phoneCall"> -->
-      <div class="kefuIcon" @click="isTelShow=!isTelShow">
+      <div class="kefuIcon" @click="telShow">
         <span class="kefuBtn-icon"></span>
       </div>
       <div class="nav-icon" @click="isNavShow=!isNavShow">
@@ -20,7 +20,8 @@
     </nav-list>
     <service-pop
         :closeTel="closeTel"
-        :isTelShow="isTelShow">
+        :isTelShow="isTelShow"
+        :name="name">
     </service-pop>
     <!-- 地址、客服、快捷菜单 end-->
     <!-- 搜索框 start-->
@@ -70,6 +71,7 @@ export default {
   },
   data () {
     return {
+      name: '首页',
       isNavShow: false,
       isTelShow: false,
       point: {},
@@ -90,6 +92,12 @@ export default {
     }
   },
   methods: {
+    telShow () {
+      this.isTelShow=!this.isTelShow;
+      if(this.isTelShow){ // 如果isTelShow=true 记录埋点
+        window._vds.track("wap_ims",{ "source": "首页-电话按钮" });
+      }
+    },
     //客服电话
     phoneCall () {
       window.location.href = 'tel:010-53579588'

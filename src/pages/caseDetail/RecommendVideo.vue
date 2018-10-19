@@ -3,7 +3,7 @@
         <swiper :options="swiperOption" class="swiperY">
             <swiper-slide class="swiper" v-for = "(list,index) in swiper" :key = "index">
             <a v-if="list.vodEntity">
-                <router-link :to = "{name:'casedetail',query:{infoId:list.informationId}}" tag = "img" @click.native="flushCom" v-if="list.vodEntity.cover" :src="list.vodEntity.cover||'/static/images/background_img/active.png'"></router-link>
+                <router-link :to = "{name:'casedetail',query:{infoId:list.informationId}}" tag = "img" @click.native="flushCom(list.title)" v-if="list.vodEntity.cover" :src="list.vodEntity.cover||'/static/images/background_img/active.png'"></router-link>
                 </a>
                 <div class="title" v-if="list.title">{{list.title}}</div>
             </swiper-slide>
@@ -35,10 +35,13 @@ export default {
     }
   },
   methods: {
-    flushCom:function(){
+    flushCom (title) {
 　　　//router是路由实例,例如:var router = new Router({})
 　　　//router.go(n)是路由的一个方法，意思是在history记录中前进或者后退多少步，0就表示还是当前，类似window.history.go(n)
       // this.$router.go(0);
+
+      window._vds.track("wap_find_details_rec",{ "fx_name": title });  // 发现详情页-内容推荐
+
       window.location.reload()
 　　}
   },

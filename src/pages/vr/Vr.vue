@@ -1,16 +1,11 @@
 <template>
   <div class="Vr">
-    <!-- <div class="vrHeader">
-      <span class="arrowLeft-icon" v-on:click = "$router.go(-1)"><</span>
-      VR看店
-      <span class="kefu-icon"></span>
-      <span class="nav-icon"></span>
-    </div> -->
+
     <vr-header></vr-header>
     <mescroll ref="mescroll" :upCallback="upCallback"  warpId="index_scroll" id="index_scroll">
       <ul class="vrList">
         <li class="item" v-for="(item,index) of vrListData" :key="index">
-          <a style="display:block" :href="item.vrUrl">
+          <a style="display:block" @click="goVrurl(item.title)" :href="item.vrUrl">
             <h3 class="title">{{item.title}}</h3>
             <div class="vrImgs">
               <img :src="item.cover" />
@@ -20,7 +15,7 @@
         </li>
       </ul>
     </mescroll>
-    <floating></floating>
+    <floating :name="name"></floating>
   </div>
 </template>
 
@@ -37,6 +32,8 @@ export default {
   },
   data () {
     return {
+      name: 'VR列表页',
+
       vrListData: [],
       paramJson: {
         "params": {
@@ -47,6 +44,9 @@ export default {
     }
   },
   methods: {
+    goVrurl (title) {
+       window._vds.track("wap_vr_list",{ "vr_name": title });
+    },
     // 上拉加载
     upCallback (page) {
       let { paramJson } = this

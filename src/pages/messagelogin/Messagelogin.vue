@@ -174,7 +174,7 @@ export default {
       }).catch((e) => {
         console.log(e)
         if (e.response) {
-          console.log(e.response.data.message)
+          // console.log(e.response.data.message)
           this.tipShow(e.response.data.message)
           this.onOff = false
         }
@@ -187,11 +187,14 @@ export default {
           'mobile': this.mobile,
           'code': this.code
         }).then((res) => {
-          console.log(res)
+          // console.log(res)
           this.tipShow('登录成功')
 
           var data = res.data.data
           // console.log(data)
+
+          window._vds.track("login",{ "user_id": data.account_id});  // 埋点
+
           utils.setCookie('accountId', data.account_id)
           utils.setCookie('mobile', this.mobile)
           utils.setCookie('accesstoken', data.access_token)
@@ -320,7 +323,8 @@ export default {
     left: 0;
     top: 0;
     .toast-tip {
-      font-size: 18/@rem;
+      //font-size: 18/@rem;
+      font-size: 24/@rem;
       color: #fff;
       width: 400/@rem;
       height: 44/@rem;

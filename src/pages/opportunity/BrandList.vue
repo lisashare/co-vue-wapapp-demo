@@ -231,8 +231,21 @@ export default {
     // 餐饮分类的请求
     setFoodIndex () {
       this.info.list[0].tagList = this.filterfoods
+      var title = this.filterfoodstitle
+      var value = ''
+      if(!title.length){
+        value = '餐饮分类'
+        // delete不需要 window._vds.track("wap_classification",{ "m_app_search": value });
+      }else{
+        for(var i = 0;i < title.length;i++){   // 埋点
+            // console.log(title[i])
+           window._vds.track("wap_classification",{ "m_app_search": title[i] });
+        }
 
-      this.navItems[0].title = this.filterfoodstitle
+        value = title.join('')
+      }
+      this.navItems[0].title = value
+
 
       this.clearData()
       this.hideFilter()
@@ -254,6 +267,9 @@ export default {
         case 4: this.info.amountSort = '2';this.info.attentionSort = '';this.navItems[1].title="金额最高";break;
         // default:break;
       }
+
+      window._vds.track("wap_sequence",{ "m_app_search": this.navItems[1].title});
+
       this.clearData()
       this.hideFilter()
     },
@@ -314,32 +330,54 @@ export default {
         return list.isChange ? list.id : false // 返回的是数据中对应list.id 的那一项
       })
       this.info.list[1].tagList = []
+
+      var wap_amount = ''  // 埋点
       if (arr01.length) {
         this.info.list[1].tagList.push(arr01[0].id)
+
+        wap_amount = arr01[0].name  // 埋点
       }
-      this.info.list[2].tagList = []
       // 第二个面积
+      this.info.list[2].tagList = []
       let arr02 = item[1].lists.filter(list => {
         return list.isChange ? list.id : false
       })
+      var wap_areas = '' // 埋点
+
       if (arr02.length) {
         this.info.list[2].tagList.push(arr02[0].id)
+
+        wap_areas = arr02[0].name  // 埋点
       }
       // console.log(this.info.list[2].tagList)
-      // 第三个面积
+      // 第三个考察区域
       let arr03 = item[2].lists.filter(list => {
         return list.isChange ? list.id : false
       })
       // console.log(arr03)
       // console.log(arr03.length + '长度')
+      
+      var wap_Inspection_area = '' // 埋点
       if (arr03.length) {
         this.info.regionTagId = arr03[0].id
+
+        wap_Inspection_area = arr03[0].name  // 埋点
       }else{
         this.info.regionTagId = ''
       }
       // console.log(this.info.regionTagId + '区域id')
       // console.log(this)
 
+      if(wap_amount){
+        window._vds.track("wap_amount",{ "m_app_search": wap_amount });  //投资金额
+      }
+      if(wap_areas){
+        window._vds.track("wap_areas",{ "m_app_search": wap_areas });   //开店面积
+      }
+      if(wap_Inspection_area){
+        window._vds.track("wap_Inspection_area",{ "m_app_search": wap_Inspection_area }); //考察区域
+      }
+      
       this.clearData()
       this.hideFilter()
     },
@@ -420,13 +458,14 @@ export default {
       for (let i = 0; i < foodId.length; i++) {
         title.push(foodId[i].name)
       }
-      console.log(title)
-      if(!title.length){
-        return '餐饮分类'
-      }else{
-        title = title.join('')
-         return title
-      }
+      // console.log(title)
+      return title
+      // if(!title.length){
+      //   return '餐饮分类'
+      // }else{
+      //   title = title.join('')
+      //   return title
+      // }
     },
     filterCategory () { // 处理餐饮项数据，给数据添加字段
       let lists = this.category

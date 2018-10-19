@@ -1,12 +1,6 @@
 <template>
   <div class="Vr">
-    <!-- <div class="vrHeader">
-      <span class="arrowLeft-icon" v-on:click = "$router.go(-1)"></span>
-      商评
-      <span class="kefu-icon" @click="isTelShow=!isTelShow"></span>
-      <span class="nav-icon" @click="isNavShow=!isNavShow"></span>
-    </div> -->
-    <header-title :title="title"></header-title>
+    <header-title :name="name" :title="title"></header-title>
     <mescroll ref="mescroll" :upCallback="upCallback"  warpId="index_scroll" id="index_scroll">
       <ul class="vrList">
         <!-- <li class="item"
@@ -37,15 +31,13 @@
         ></shangping-list-item>
       </ul>
     </mescroll>
-    <floating></floating>
+    <floating :name="name"></floating>
   </div>
 </template>
 
 <script>
 import utils from '@/modules/utils.js'
 import mescroll from '@/common/mescroll/Mescroll.vue' /* 分页组件 */
-/*import NavList from '@/pages/components/NavList'
-import ServicePop from '@/pages/components/ServicePop'*/
 import Floating from '@/common/floating/Floating'
 import HeaderTitle from '@/pages/components/HeaderTitle.vue'
 import ShangpingListItem from '@/common/shangpingListItem/ShangpingListItem'
@@ -53,8 +45,6 @@ export default {
   name: 'Vr',
   components: {
     mescroll,
-    /*NavList,
-    ServicePop,*/
     Floating,
     HeaderTitle,
     ShangpingListItem
@@ -68,11 +58,10 @@ export default {
            "sourceType": "-1"
          }
       },
-      isNavShow: false,
-      isTelShow: false,
       vrListData: [],
       title: "商评",
       // collection: false
+      name: '商评列表页'
     }
   },
   methods: {
@@ -83,24 +72,14 @@ export default {
         console.log('收藏成功'+uid);
       }
     },*/
-    //客服电话
-    phoneCall () {
-      window.location.href = 'tel:010-53579588'
-    },
-    closeNav () {
-      this.isNavShow = false;
-    },
-    closeTel () {
-      this.isTelShow = false;
-    },
     // 上拉加载
     upCallback (page) {
       let { paramJson } = this
       paramJson.params.pageNum = page.num
       paramJson.params.pageSize = page.size
       this.$http.post(this.baseurl+'/home/vodvideos', paramJson).then((res) => {
-        console.log(res)
-        console.log(res.data.data.list)
+        // console.log(res)
+        // console.log(res.data.data.list)
         if (res.data.code == 200) {
           let tmp = res.data.data
           let list = res.data.data.list

@@ -1,6 +1,6 @@
 <template>
   <li class="item">
-      <router-link tag="div" :to="{name:'videodetail',query:{videoId:item.uuid}}">
+      <div @click="goDetail">
         <h3 class="title">{{item.title}}</h3>
 
         <div class="vrImgs" v-if="item.cover">
@@ -11,7 +11,7 @@
           <img src="/static/images/background_img/active.png" />
           <img class="vrImg" src="/static/images/home/icon/bofang.png" />
         </div>
-      </router-link>
+      </div>
     <!-- <div class="proManage">
       <div class="dianzan lineBlock" @click="likeFn()">
         <i class="dianzan-icon" :class="{'dianzan-icon-hover':like}"></i><span>点赞</span>
@@ -33,6 +33,7 @@
         :supportStatus="item.supportStatus"
         :supportTotal="item.supportTotal"
         :isCollect="item.isCollect"
+        :title="item.title"
       ></pro-manage>
     </div>
 
@@ -54,6 +55,10 @@ export default {
     }
   },
   methods: {
+    goDetail (title) {
+      window._vds.track("wap_review_list",{ "shangping": this.item.title,"act_source": "商评列表页"});
+      this.$router.push({name:'videodetail',query:{videoId:this.item.uuid}})
+    },
     //点赞
     likeFn () {
       this.like = !this.like;

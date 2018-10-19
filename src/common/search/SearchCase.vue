@@ -104,6 +104,10 @@ export default {
     },
     // 数据框，点击回车搜索结果并显示，同时将搜索内容存入历史记录
     searchTarget () { // 搜索目标
+
+      // 埋点
+      window._vds.track("wap_search_input",{ "content": this.searchValue });
+
       /*
         * 点击搜索结果进入下一页面时进行判断是否已经有一样的历史记录
         * 如果没有则新增，如果有则不做重复储存，判断完成后进入下一页

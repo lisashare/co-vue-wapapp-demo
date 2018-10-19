@@ -32,9 +32,7 @@ switch(process.env.srconfig){
   weburl = "http://kuaidaoservice-manager-mobile-test.kuaidaoapp.com/"
   break;
 }
-// module.exports = {
-//   baseurl
-// }
+
 var imurl = '/';
 // var imurl = ' http://localhost:3000/webdemo/h5/';
 let config = {

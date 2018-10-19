@@ -444,7 +444,9 @@ export default {
       }
       p {
         font-size: 26/@rem;
-        line-height: 36/@rem;
+        //line-height: 36/@rem;
+        line-height: 46/@rem;
+        margin: 10/@rem 0;
       }
     }
   }

@@ -54,11 +54,20 @@ export default {
   props: ['list'],
   data () {
     return {
-      brandtitle: this.list.brandName
+      brandtitle: this.list.brandName,
+
+      name: ''
     }
   },
   methods: {
     setTitle () {
+      // 点击获取埋点来源
+      var name = this.$route.name
+      console.log(name)
+      switch(name){
+        case 'home' : this.name = '首页';window._vds.track("wap_business_list",{ "name": this.brandtitle,"act_source": this.name});break;   
+        case 'opportunity' : this.name = '商机列表';window._vds.track("wap_business_list",{ "name": this.brandtitle,"act_source": this.name});break;     
+      }
       utils.setSessionStore('brandtitle', this.brandtitle)
       this.$router.push({name: 'branddetail', query: {brandId: this.list.brandId}})
     }

@@ -1,6 +1,6 @@
 <template>
   <div class="wrap page-top">
-    <video-header :title="videoTitle"></video-header>
+    <video-header :name="name" :title="videoTitle"></video-header>
     <div v-if="loading" class="loading-animation">
       <div class="loading-img loading-logo">
           <img width="100%" src="/static/images/common/logo.png" alt="">
@@ -14,7 +14,7 @@
       <video-play :list="list" :listVideo="listVideo" ></video-play>
       <video-comment></video-comment>
     </div>
-  <floating></floating>
+  <floating :name="name" :title="list.title"></floating>
   </div>
 </template>
 
@@ -39,6 +39,8 @@ export default {
       listVideo: '',
       videoTitle: '',
       loading: true,
+
+      name: '商评详情页'
     }
   },
   methods: {
@@ -57,18 +59,18 @@ export default {
           this.listVideo = res.data.data.hdUrl
           this.videoTitle = res.data.data.title
         }
-        console.log(this.videoTitle)
+        // console.log(this.videoTitle)
       })
     }
   },
   mounted () {
     this.getVideoDetailData()
-    console.log(this.listVideo)
+    // console.log(this.listVideo)
   },
   updated() {
     window.scroll(0, 0);
-  },
-  created () {
+  }//,
+  /*created () {
     this.$http.post(this.baseurl+'/home/voddetail', {
       "uuid": this.$route.query.videoId,
       "params": {
@@ -85,7 +87,7 @@ export default {
         console.log(res.data.data.cover)
       }
     })
-  }
+  }*/
 }
 </script>
 

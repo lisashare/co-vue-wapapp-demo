@@ -4,7 +4,7 @@
             <i class="icon-left" v-on:click = "$router.go(-1)"></i>
             <h2 class="ellipsis">{{title}}</h2>
             <div @click="bus">
-              <span class="header-contact-customer" @click="isTelShow=!isTelShow"></span>            
+              <span class="header-contact-customer" @click="telShow"></span>
               <span class="header-nav" @click="isNavShow=!isNavShow"></span>
             </div>
         </header>
@@ -14,7 +14,8 @@
         </nav-list>
         <service-pop
           :closeTel="closeTel"
-          :isTelShow="isTelShow">
+          :isTelShow="isTelShow"
+          :name="name">
         </service-pop>
     </div>
 </template>
@@ -25,9 +26,16 @@ import NavList from '@/pages/components/NavList'
 export default {
   name: 'HeaderTitle',
   components: {NavList,ServicePop},
-  props: ['title'],
+  props: {
+    title: String,
+    // name:{
+    //   type: String,
+    //   default: ''
+    // }
+  },
   data () {
     return {
+      name: '发现详情页',
       isNavShow: false,
       isTelShow: false,
       message: ''
@@ -38,9 +46,6 @@ export default {
       // debugger
       Bus.$emit('videoHiden')
     },
-    phoneCall () {
-      window.location.href = 'tel:010-53579588'
-    },
     closeNav () {
       this.isNavShow = false
       Bus.$emit('imgHiden')
@@ -49,6 +54,13 @@ export default {
       this.isTelShow = false
       Bus.$emit('imgHiden')
     },
+    telShow () {
+      this.isTelShow=!this.isTelShow
+
+      if(this.isTelShow){ // 如果isTelShow=true 记录埋点
+        window._vds.track("wap_ims",{ "source": this.name + "-电话按钮" });
+      }
+    }
   }
 }
 </script>

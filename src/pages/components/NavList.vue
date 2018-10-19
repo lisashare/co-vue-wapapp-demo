@@ -14,23 +14,23 @@
             v-if="isNavShow"
             class="nav-group">
             <ul>
-                <li @click="$router.push({name:'home'})">
+                <li @click="goHome">
                     <div class="nav-img"><img class="icon1" src="/static/images/nav/icon_home@3x.png" /></div>
                     <span class="title">首页</span>
                 </li>
-                <li @click="$router.push({name:'opportunity'})">
+                <li @click="goOpportunity">
                     <div class="nav-img"><img class="icon2" src="/static/images/nav/icon_shangji@3x.png" /></div>
                     <span class="title">商机</span>
                 </li>
-                <li @click="$router.push({name:'vr'})">
+                <li @click="goVr">
                     <div class="nav-img"><img class="icon3" src="/static/images/nav/icon_vr@3x.png" /></div>
                     <span class="title">VR看店</span>
                 </li>
-                <li @click="$router.push({name:'shangping'})">
+                <li @click="goShangping">
                     <div class="nav-img"><img class="icon4" src="/static/images/nav/icon_shangping@3x.png" /></div>
                     <span class="title">商评</span>
                 </li>
-                <li @click="$router.push({name:'case'})">
+                <li @click="goCase">
                     <div class="nav-img"><img class="icon5" src="/static/images/nav/icon_find@3x.png" /></div>
                     <span class="title">发现</span>
                 </li>
@@ -38,7 +38,7 @@
                     <div class="nav-img"><img class="icon6" src="/static/images/nav/icon_xiaoxi@3x.png" /></div>
                     <span class="title">消息</span>
                 </li>
-                <li @click="$router.push({name:'my'})">
+                <li @click="goMy">
                     <div class="nav-img"><img class="icon7" src="/static/images/nav/icon_me@3x.png" /></div>
                     <span class="title">我的</span>
                 </li>
@@ -61,7 +61,14 @@ import config from '@/modules/http'
 import utils from '@/modules/utils'
 export default {
   name: 'NavList',
-  props: ['isNavShow', 'closeNav'],
+  props: {
+      isNavShow:Boolean,
+      closeNav:Function,
+    //   name:{
+    //     type: String,
+    //     default: '首页'
+    //   },
+  },
   data () {
     return {
       navs: [
@@ -82,8 +89,35 @@ export default {
     }
   },
   methods: {
+    goHome () {
+      window._vds.track("wap_home");
+      this.$router.push({name:'home'})
+    },
+    goOpportunity () {
+      window._vds.track("wap_business");
+      this.$router.push({name:'opportunity'})
+    },
+    goVr () {
+      window._vds.track("wap_vr");
+      this.$router.push({name:'vr'})
+    },
+    goShangping () {
+      window._vds.track("wap_review");
+      this.$router.push({name:'shangping'})
+    },
+    goCase () {
+      window._vds.track("wap_find");
+      this.$router.push({name:'case'})
+    },
+     goMy () {
+      window._vds.track("wap_my");
+      this.$router.push({name:'my'})
+    },
     downLoadApp(){
-        console.log(config.downLoad)
+        // console.log(config.downLoad)
+
+        window._vds.track("wap_app");
+
         window.location.href = config.downLoad
         // if( this.judgeType() == 'IOS' ){
         //     window.location.href = config.downLoadIos
@@ -115,7 +149,12 @@ export default {
             // 跳转
             location.href = config.imSession
           }
-
+      })
+      .catch((error) => {
+          if(error.response.status == 401){
+              utils.clearCookie()
+            //   this.$router.push({name:'login'})       
+          }
       })
     },
     getAccountId(){
@@ -138,7 +177,7 @@ export default {
             utils.setCookie('msgDetails', res.data.data.msgDetails)
 
             utils.setCookie('accountMsg',this.accountMsg)
-            console.log(sendTime,readStatus,msgDetails)
+            // console.log(sendTime,readStatus,msgDetails)
             // 跳转
             if(!this.sessionId){  // 没有id
                 // console.log('没有getSessionId的时候')
@@ -148,10 +187,12 @@ export default {
                 location.href = config.imSession
             }
           }
-
       })
     },
     goSession () {
+
+      window._vds.track("wap_news");  // 埋点
+
       this.uid = utils.getCookie('uid')
       this.sdktoken = utils.getCookie('sdktoken')
       this.mobile = utils.getCookie('mobile')

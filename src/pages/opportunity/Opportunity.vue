@@ -1,10 +1,9 @@
 <template>
     <div class="opportunity page-top">
-        <!-- <app-search></app-search> -->
-        <header-search :placeholder="placeholder"></header-search>
+        <header-search :name="name" :placeholder="placeholder"></header-search>
         <app-banner></app-banner>
         <brand-list></brand-list>
-        <floating></floating>
+        <floating :name="name"></floating>
     </div>
 </template>
 <script>
@@ -17,7 +16,9 @@ export default {
   components: { AppBanner, BrandList, HeaderSearch, Floating},
   data () {
     return {
-      placeholder: '请输入您想查询的品牌名称'
+      placeholder: '请输入您想查询的品牌名称',
+
+      name: '商机列表', // 进入页面将name传递给需要点击的事件组件
     }
   }
 }

@@ -95,8 +95,10 @@ export default {
     },
     //搜索事件
     fnSearch () {
+      // 埋点
+      window._vds.track("wap_search_input",{ "content": this.searchValue });
       this.$route.query.name = this.searchValue
-      console.log( this.$route.query.name )
+      // console.log( this.$route.query.name )
       this.getSearchData ()
     },
     //请求列表数据

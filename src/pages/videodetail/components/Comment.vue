@@ -77,7 +77,7 @@ export default {
       info.params.pageSize = page.size
       this.$http.post(this.baseurl+'/home/videocomment', info).then((res) => {
         if (res.data.code == 200) {
-          console.log(res.data.data.list)
+          // console.log(res.data.data.list)
           let list = res.data.data.list
           this.total = res.data.data.total
           this.$refs.mescroll.endSuccess(list.length)

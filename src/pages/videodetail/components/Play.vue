@@ -1,7 +1,7 @@
 <template>
   <div class="videoBody" v-if="listVideo">
     <div class="videoC">
-      <video id="video1" :poster="list.cover||'/static/images/background_img/active.png'" :controls="controlshow" v-show="videoShow">
+      <video id="video1" :poster="list.cover||'/static/images/background_img/active.png'" :controls="controlshow" v-if="videoShow">
         <!-- <source :src="list.hdUrl" type="video/mp4" /> -->
         <source :src="listVideo" type="video/mp4" />
       </video>
@@ -10,7 +10,7 @@
         <img width="100%" src="/static/images/opportunity/branddetail/bofang.png" alt="">
       </div>
       <!-- 封皮图片 -->
-      <div class="imgbox" v-show="imgShow"><img :src="list.cover||'/static/images/background_img/active.png'"></div>
+      <div class="imgbox" v-if="imgShow"><img :src="list.cover||'/static/images/background_img/active.png'"></div>
     </div>
 
     <div class="des">
@@ -23,6 +23,7 @@
           :supportStatus="list.supportStatus"
           :supportTotal="list.supportTotal"
           :isCollect="list.isCollect"
+          :title="list.title"
         ></pro-manage>
       </div>
       <p class="title">{{list.title}}</p>
@@ -91,7 +92,7 @@ export default {
       let ua = navigator.userAgent.toLowerCase();
       if(ua.match(/Android/i) == "android") {
         // 安卓
-        console.log("安卓")
+        // console.log("安卓")
         this.videoIconshow=true //显示播放按钮
       }
     },
@@ -103,7 +104,7 @@ export default {
       let ua = navigator.userAgent.toLowerCase();
       if(ua.match(/Android/i) == "android") {
         // 安卓
-        console.log("安卓")
+        // console.log("安卓")
         this.videoIconshow=true //显示播放按钮
       }
     },
@@ -112,12 +113,12 @@ export default {
       let ua = navigator.userAgent.toLowerCase();
       if (ua.match(/iPhone\sOS/i) == "iphone os") {
           // ios
-          console.log("ios")
+          // console.log("ios")
           //不显示播放按钮,显示controls
 
       } else if(ua.match(/Android/i) == "android") {
           // 安卓
-          console.log("安卓")
+          // console.log("安卓")
           this.videoIconshow=true //显示播放按钮
           this.controlshow=false //不显示controls
       }

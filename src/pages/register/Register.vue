@@ -188,7 +188,7 @@ export default {
         if (typeof this.times == 'number') {
           return false
         }
-        console.log( typeof this.times == 'number' )
+        // console.log( typeof this.times == 'number' )
         this.$http.post(this.baseurl+'/sms/register/code', {
           'mobile': this.mobile
         }).then((res) => {
@@ -212,15 +212,13 @@ export default {
         }).catch((e) => {
           // console.log(e);
           if (e.response) {
-            console.log(e.response.data.message)
+            // console.log(e.response.data.message)
             this.tipShow(e.response.data.message)
             // console.log(e.response.status);
             // console.log(e.response.headers);
           }
         })
-
       // }
-
     },
     usrRegister () {
       if ( this.validMobile() && this.validCode() && this.validPassword() && this.validName() ) {
@@ -230,13 +228,16 @@ export default {
           'code': this.code,
           'name': this.name
         }).then((res) => {
-          console.log(res)
+          // console.log(res)
           this.tipShow('注册成功')
+
+          window._vds.track("wap_registered"); // 埋点
+
           this.$router.push('/login');
         }).catch((e) => {
           // console.log(e)
           if (e.response) {
-            console.log(e.response.data.message)
+            // console.log(e.response.data.message)
             this.tipShow(e.response.data.message)
             _this.onOff = false
           }
@@ -256,7 +257,8 @@ export default {
     left: 0;
     top: 0;
     .toast-tip {
-      font-size: 18/@rem;
+      //font-size: 18/@rem;
+      font-size: 24/@rem;
       color: #fff;
       width: 400/@rem;
       height: 44/@rem;

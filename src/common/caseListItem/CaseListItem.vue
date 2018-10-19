@@ -1,7 +1,8 @@
 <template>
     <li :infoId = 'list.infoId' class="case-list-item">
-        <router-link :to = "{name:'casedetail',query:{infoId:list.infoId}}"
-    tag = "div">
+        <!-- <router-link :to = "{name:'casedetail',query:{infoId:list.infoId}}"
+    tag = "div">-->
+        <div @click="goDetail">
           <div class="case_title">{{list.title}}</div>
           <div class="img-wrap" v-if="list.vodEntity.cover">
               <img width="100%" height="100%" :src="list.vodEntity.cover">
@@ -15,7 +16,8 @@
                   <img width="100%" src="/static/images/opportunity/branddetail/bofang.png" alt="">
               </div>
           </div>
-        </router-link>
+        </div>
+        <!-- </router-link> -->
         <div class="tipbox">
             <!-- <div class="pinglun fr">
                 <i class="fa fa-commenting-o"></i>
@@ -32,6 +34,7 @@
               :supportStatus="list.likes"
               :supportTotal="list.likeNum"
               :isCollect="list.collFlag"
+              :title="list.title"
             ></pro-manage>
         </div>
         <div class="masks"></div>
@@ -53,11 +56,15 @@ export default {
     }
   },
   methods: {
+    goDetail () {
+        window._vds.track("wap_find_list",{ "fx_name": this.list.title });
+        this.$router.push({name:'casedetail',query:{infoId:this.list.infoId}})
+    },
     //收藏
     collectFn () {
       this.collection = !this.collection;
       if(this.collection){
-        console.log('收藏成功');
+        // console.log('收藏成功');
       }
     }
   }
